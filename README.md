@@ -1,4 +1,4 @@
-# Site perruques et coiffure — rue Jaffa, Jérusalem
+# Flora Wigs — perruques et coiffure, rue Jaffa, Jérusalem
 
 Site en hébreu (langue principale), français et anglais, pensé d'abord pour le téléphone.
 
@@ -26,8 +26,7 @@ npm run dev
 
 Tout est dans `src/lib/config.ts`, aux lignes marquées **À COMPLÉTER** :
 
-- le nom de la marque (provisoirement « Yaffo 153 ») et le prénom de la coiffeuse
-- son numéro WhatsApp (le bouton WhatsApp reste caché tant qu'il est vide)
+- le prénom de la coiffeuse
 - son Instagram
 - les prix « à partir de » de chaque prestation (ceux du fichier sont des exemples)
 

@@ -5,8 +5,7 @@ export type Locale = "he" | "fr" | "en";
 export type Localized = Record<Locale, string>;
 
 export const site = {
-  // À COMPLÉTER : nom de la marque (provisoire, tiré de l'adresse).
-  brand: { he: "יפו 153", fr: "Yaffo 153", en: "Yaffo 153" } as Localized,
+  brand: { he: "Flora Wigs", fr: "Flora Wigs", en: "Flora Wigs" } as Localized,
   // À COMPLÉTER : prénom de la coiffeuse.
   ownerName: { he: "", fr: "", en: "" } as Localized,
   address: {
@@ -15,9 +14,8 @@ export const site = {
     en: "153 Jaffa Street, Jerusalem",
   } as Localized,
   mapsQuery: "Yafo St 153, Jerusalem",
-  // À COMPLÉTER : numéro WhatsApp de la coiffeuse, format international sans + (ex. 972501234567).
-  // Tant qu'il est vide, le bouton WhatsApp n'est pas affiché.
-  whatsapp: "",
+  // Numéro WhatsApp de la coiffeuse, format international sans + (058-778-1315).
+  whatsapp: "972587781315",
   // À COMPLÉTER : lien Instagram, vide pour le cacher.
   instagram: "",
   timeZone: "Asia/Jerusalem",
