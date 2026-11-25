@@ -3,24 +3,22 @@ import path from "node:path";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MapPin, MessageCircle, Navigation } from "lucide-react";
-import { services, site, type Locale } from "@/lib/config";
-import { all, getClosedDays, getHours, type Wig } from "@/lib/db";
+import { hours, services, site, type Locale } from "@/lib/config";
+import { visibleWigs } from "@/data/wigs";
+import { asset } from "@/lib/asset";
 import { formatPrice, isLocale, localeTag, t, type Dict } from "@/lib/i18n";
 import { waLink } from "@/lib/phone";
-import { nowInJerusalem, weekday } from "@/lib/slots";
 import { WigArt } from "@/components/WigArt";
 import { WigCard } from "@/components/WigCard";
 import { WigTag } from "@/components/WigTag";
 
-export const dynamic = "force-dynamic";
-
-const photo = (name: string) => (fs.existsSync(path.join(process.cwd(), "public", "photos", name)) ? `/photos/${name}` : null);
+const photo = (name: string) => (fs.existsSync(path.join(process.cwd(), "public", "photos", name)) ? asset(`/photos/${name}`) : null);
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const d = t(locale);
-  const wigs = all<Wig>("SELECT * FROM wigs WHERE status IN ('available','reserved') ORDER BY status = 'reserved', sort, id DESC LIMIT 6");
+  const wigs = [...visibleWigs()].sort((a, b) => Number(a.status === "reserved") - Number(b.status === "reserved")).slice(0, 6);
   const hero = photo("hero.jpg");
   const portrait = photo("portrait.jpg");
   const featured = wigs.find((w) => w.status === "available");
@@ -200,19 +198,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 }
 
 function Hours({ locale, d }: { locale: Locale; d: Dict }) {
-  const hours = getHours();
-  const today = nowInJerusalem().day;
-  const todayWd = weekday(today);
-  const closedToday = getClosedDays().includes(today);
   // 2023-01-01 est un dimanche : sert juste à obtenir le nom des jours dans chaque langue.
   const name = (i: number) => new Intl.DateTimeFormat(localeTag[locale], { weekday: "long", timeZone: "UTC" }).format(new Date(Date.UTC(2023, 0, 1 + i)));
   return (
     <table className="hours">
       <tbody>
         {hours.map((h, i) => (
-          <tr key={i} className={i === todayWd ? "is-today" : undefined}>
+          <tr key={i}>
             <td>{name(i)}</td>
-            <td>{h && !(i === todayWd && closedToday) ? <span dir="ltr">{`${h.open}–${h.close}`}</span> : d.visit.closed}</td>
+            <td>{h ? <span dir="ltr">{`${h.open}–${h.close}`}</span> : d.visit.closed}</td>
           </tr>
         ))}
       </tbody>

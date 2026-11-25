@@ -13,6 +13,9 @@ import "../globals.css";
 
 
 
+export const generateStaticParams = () => locales.map((locale) => ({ locale }));
+export const dynamicParams = false;
+
 export const viewport: Viewport = { themeColor: "#f7f3ea" };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -22,7 +25,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: { default: `${site.brand[locale]} · ${d.hero.title}`, template: `%s · ${site.brand[locale]}` },
     description: d.hero.subtitle,
-    metadataBase: process.env.SITE_URL ? new URL(process.env.SITE_URL) : undefined,
     alternates: { languages: Object.fromEntries(locales.map((l) => [l, `/${l}`])) },
   };
 }

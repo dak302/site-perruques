@@ -21,6 +21,20 @@ export const site = {
   timeZone: "Asia/Jerusalem",
 };
 
+// Horaires d'ouverture. Index 0 = dimanche … 6 = samedi. null = fermé.
+export const hours: ({ open: string; close: string } | null)[] = [
+  { open: "09:00", close: "18:00" }, // dimanche
+  { open: "09:00", close: "18:00" }, // lundi
+  { open: "09:00", close: "18:00" }, // mardi
+  { open: "09:00", close: "18:00" }, // mercredi
+  { open: "09:00", close: "18:00" }, // jeudi
+  { open: "09:00", close: "13:00" }, // vendredi
+  null, // samedi
+];
+
+// Jours fermés exceptionnels (vacances, fêtes), au format "AAAA-MM-JJ".
+export const closedDays: string[] = [];
+
 export type Service = {
   id: string;
   name: Localized;

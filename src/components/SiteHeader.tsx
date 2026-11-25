@@ -30,9 +30,9 @@ export function SiteHeader({ locale, brand, labels }: { locale: Locale; brand: s
   const Lang = () => (
     <nav className="lang" aria-label="Language">
       {locales.map((l) => (
-        <a key={l} href={`/${l}${rest ? `/${rest}` : ""}`} lang={l} hrefLang={l} aria-current={l === locale ? "true" : undefined}>
+        <Link key={l} href={`/${l}/${rest ? `${rest.replace(/\/$/, "")}/` : ""}`} lang={l} hrefLang={l} aria-current={l === locale ? "true" : undefined}>
           {languageName[l]}
-        </a>
+        </Link>
       ))}
     </nav>
   );
@@ -45,7 +45,7 @@ export function SiteHeader({ locale, brand, labels }: { locale: Locale; brand: s
         </Link>
         <nav className="nav" aria-label={labels.menu}>
           {links.map((l) => (
-            <Link key={l.href} href={l.href} aria-current={pathname === l.href ? "page" : undefined}>
+            <Link key={l.href} href={l.href} aria-current={pathname.replace(/\/$/, "") === l.href ? "page" : undefined}>
               {l.label}
             </Link>
           ))}

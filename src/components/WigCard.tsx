@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Locale } from "@/lib/config";
-import type { Wig } from "@/lib/db";
+import type { Wig } from "@/data/wigs";
 import { formatPrice, type Dict } from "@/lib/i18n";
 import { WigMedia } from "./WigMedia";
 import { WigTag, wigAlt } from "./WigTag";
